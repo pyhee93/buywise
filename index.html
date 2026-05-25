@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Price Check" />
+  <title>Price Check v3</title>
+  <style>
+    :root{
+      --bg:#f7f4ef; --card:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
+      --accent:#111827; --accent2:#374151; --soft:#f3f4f6; --good:#047857; --danger:#b91c1c; --warn:#92400e;
+      --shadow:0 16px 45px rgba(17,24,39,.10); --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,"Noto Sans SC","PingFang SC",sans-serif;background:linear-gradient(180deg,#fbfaf8 0%,var(--bg) 100%);color:var(--ink);padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+    button,input,select,textarea{font:inherit} button{border:0;border-radius:999px;padding:12px 16px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer;min-height:44px} button.secondary{background:var(--soft);color:var(--ink)} button.ghost{background:transparent;color:var(--ink);padding:8px 10px;min-height:34px} button.danger,.danger{color:var(--danger)!important}.small{font-size:13px;padding:8px 12px;min-height:36px}
+    input,select,textarea{border:1px solid var(--line);border-radius:16px;padding:13px 12px;background:#fff;outline:none;color:var(--ink);min-width:0;width:100%;font-size:16px} input:focus,select:focus,textarea:focus{border-color:#9ca3af;box-shadow:0 0 0 3px rgba(17,24,39,.06)} textarea{resize:vertical;min-height:74px}
+    .app{max-width:820px;margin:0 auto;padding:18px 16px calc(104px + env(safe-area-inset-bottom))}
+    .app-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:6px 0 16px}.app-title{font-size:29px;line-height:1.05;margin:0 0 5px;letter-spacing:-.8px}.sub{margin:0;color:var(--muted);font-size:14px}.lang{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 12px;color:var(--ink);width:auto;min-width:86px}
+    .search-card{background:var(--card);border-radius:30px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.search-line{display:flex;align-items:center;gap:10px}.search-box{position:relative;flex:1}.search-box input{border-radius:999px;padding:16px 18px 16px 44px}.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}.hint{font-size:13px;color:var(--muted);margin:10px 5px 0}.dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 2px}.stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:12px}.stat b{display:block;font-size:21px;letter-spacing:-.4px}.stat span{font-size:12px;color:var(--muted)}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0 12px;flex-wrap:wrap}.toolbar h2{font-size:18px;margin:0}.toolbar-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.toolbar select{border-radius:999px;padding:10px 12px;width:auto;font-size:14px}.backup-actions{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap}.hidden{display:none!important}
+    .list{display:flex;flex-direction:column;gap:12px}.card{background:var(--card);border:1px solid rgba(229,231,235,.85);border-radius:var(--radius);padding:15px;box-shadow:0 8px 24px rgba(17,24,39,.06)}.item{scroll-margin-top:20px}.item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.item-title{font-size:17px;font-weight:900;margin:0;line-height:1.25}.item-meta{font-size:13px;color:var(--muted);margin-top:5px}.price-block{text-align:right;min-width:110px}.badge{display:inline-flex;align-items:center;border-radius:999px;background:#ecfdf5;color:var(--good);font-size:11px;font-weight:900;padding:5px 8px;white-space:nowrap}.badge.warn{background:#fffbeb;color:var(--warn)}.price{font-size:20px;font-weight:950;letter-spacing:-.4px;margin-top:4px}.rows{margin-top:12px;border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:76px 1fr auto;gap:8px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.row-date{font-size:12px;color:var(--muted)}.row-store{font-size:14px;font-weight:700}.row-price{font-weight:900}.notes,.unit-line{font-size:12px;color:var(--muted);margin-top:3px}.empty{text-align:center;color:var(--muted);padding:28px 12px}.record-actions{display:flex;justify-content:flex-end;gap:3px;margin-top:2px;flex-wrap:wrap}
+    .fab-wrap{position:fixed;left:0;right:0;bottom:0;z-index:8;padding:12px 16px calc(14px + env(safe-area-inset-bottom));pointer-events:none}.fab-inner{max-width:820px;margin:0 auto;display:flex;justify-content:center}.fab{pointer-events:auto;width:70px;height:70px;border-radius:50%;box-shadow:0 14px 35px rgba(17,24,39,.28);font-size:34px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center;background:var(--accent)}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(17,24,39,.43);display:none;align-items:flex-end;z-index:20}.modal-backdrop.show{display:flex}.modal{background:#fff;border-radius:30px 30px 0 0;padding:16px;width:100%;max-width:820px;margin:0 auto;box-shadow:0 -20px 50px rgba(0,0,0,.20);max-height:92vh;overflow:auto}.modal-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.modal-title{font-size:20px;font-weight:950;margin:0}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1} label{font-size:12px;font-weight:850;color:var(--muted)}.calc-card{grid-column:1/-1;border:1px dashed #d1d5db;border-radius:18px;padding:12px;background:#fafafa}.calc-result{display:flex;justify-content:space-between;align-items:center;gap:10px}.calc-result span{font-size:13px;color:var(--muted)}.calc-result b{font-size:22px}.form-actions{display:flex;gap:8px;margin-top:14px}.form-actions button{flex:1}.search-results{max-height:55vh;overflow:auto;margin-top:12px}.quick-result{display:block;width:100%;text-align:left;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:18px;margin:8px 0;padding:12px}.quick-result b{display:block}.quick-result span{color:var(--muted);font-size:13px}.quick-result:hover{background:#fafafa}
+    datalist{font-size:16px}
+    @media(max-width:540px){.app{padding-left:14px;padding-right:14px}.app-title{font-size:27px}.search-line{gap:8px}.search-line button{padding:12px 14px}.dashboard{grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:10px}.stat b{font-size:20px}.stat span{font-size:11px}.toolbar{align-items:flex-start}.toolbar-actions{width:100%;justify-content:space-between}.toolbar-actions select{flex:1}.item-head{flex-direction:column}.price-block{text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between}.row{grid-template-columns:70px 1fr;align-items:start}.row>div:last-child{grid-column:1/-1;text-align:left!important;background:#fafafa;border-radius:14px;padding:9px}.record-actions{justify-content:flex-start}.form-grid{grid-template-columns:1fr}.field.full,.calc-card{grid-column:auto}.modal{border-radius:26px 26px 0 0;padding:16px 14px}.backup-actions button{flex:1}}
+    @media(min-width:760px){.app{padding-bottom:42px}.fab{width:auto;height:auto;border-radius:999px;font-size:16px;padding:14px 22px}.fab::after{content:attr(data-label);font-size:16px;margin-left:8px}.fab-wrap{bottom:22px}.modal-backdrop{align-items:center}.modal{border-radius:30px;max-width:620px;max-height:86vh}.form-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div><h1 class="app-title" data-i18n="title">Price Check</h1><p class="sub" data-i18n="subtitle">Track prices and check whether today’s deal is worth it.</p></div>
+      <select id="language" class="lang" aria-label="Language"><option value="en">EN</option><option value="zh">中文</option></select>
+    </header>
+
+    <section class="search-card" aria-label="Home search and dashboard">
+      <div class="search-line">
+        <div class="search-box"><span class="search-icon">⌕</span><input id="mainSearch" list="mainSuggestions" placeholder="Search product, brand or store" data-i18n-placeholder="searchPlaceholder" autocomplete="off" /></div>
+        <button id="openSearch" type="button" data-i18n="searchBtn">Search</button>
+      </div>
+      <datalist id="mainSuggestions"></datalist>
+      <p class="hint" data-i18n="searchHint">Tip: Search “Eucerin”, “sunscreen”, “Watsons”, etc.</p>
+      <div class="dashboard">
+        <div class="stat"><b id="statProducts">0</b><span data-i18n="products">Products</span></div>
+        <div class="stat"><b id="statRecords">0</b><span data-i18n="records">Records</span></div>
+        <div class="stat"><b id="statStores">0</b><span data-i18n="stores">Stores</span></div>
+      </div>
+    </section>
+
+    <main>
+      <div class="toolbar">
+        <h2 data-i18n="history">Your price history</h2>
+        <div class="toolbar-actions"><select id="sortBy"><option value="recent" data-i18n="sortRecent">Newest first</option><option value="cheap" data-i18n="sortCheap">Cheapest first</option><option value="az" data-i18n="sortAZ">A to Z</option></select></div>
+      </div>
+      <div class="backup-actions">
+        <button class="secondary small" id="exportBtn" type="button" data-i18n="export">Export backup</button>
+        <button class="secondary small" id="importBtn" type="button" data-i18n="import">Import backup</button>
+        <input id="importFile" class="hidden" type="file" accept="application/json" />
+      </div>
+      <div id="itemList" class="list"></div>
+    </main>
+  </div>
+
+  <div class="fab-wrap"><div class="fab-inner"><button id="openAdd" class="fab" type="button" aria-label="Add price record" data-label="Add record">+</button></div></div>
+
+  <div class="modal-backdrop" id="formModal" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+      <div class="modal-header"><h2 class="modal-title" id="formTitle" data-i18n="addRecord">Add price record</h2><button class="ghost" id="closeForm" type="button">✕</button></div>
+      <form id="priceForm">
+        <input type="hidden" id="editId" />
+        <div class="form-grid">
+          <div class="field"><label for="brand" data-i18n="brand">Brand</label><input id="brand" list="brandSuggestions" required placeholder="Eucerin" autocomplete="off" /></div>
+          <div class="field"><label for="product" data-i18n="product">Product name</label><input id="product" list="productSuggestions" required placeholder="UltraSensitive Gel" autocomplete="off" /></div>
+          <div class="field"><label for="store" data-i18n="store">Store</label><input id="store" list="storeSuggestions" required placeholder="Watsons" autocomplete="off" /></div>
+          <div class="field"><label for="date" data-i18n="date">Date</label><input id="date" type="date" required /></div>
+          <div class="field"><label for="unitPrice" data-i18n="unitPrice">Price per unit</label><input id="unitPrice" type="text" placeholder="29.90" inputmode="decimal" pattern="[0-9]*[.]?[0-9]*" autocomplete="off" /></div>
+          <div class="field"><label for="quantity" data-i18n="quantity">Quantity</label><input id="quantity" type="text" placeholder="3" inputmode="decimal" pattern="[0-9]*[.]?[0-9]*" autocomplete="off" /></div>
+          <div class="field"><label for="price" data-i18n="finalPrice">Final price</label><input id="price" type="text" required placeholder="89.70" inputmode="decimal" pattern="[0-9]*[.]?[0-9]*" autocomplete="off" /></div>
+          <div class="field"><label for="currency" data-i18n="currency">Currency</label><select id="currency"><option>MYR</option><option>SGD</option><option>USD</option><option>CNY</option></select></div>
+          <div class="calc-card"><div class="calc-result"><span data-i18n="autoCalc">Auto calculation</span><b id="calcPreview">MYR 0.00</b></div><div class="hint" style="margin:8px 0 0" data-i18n="calcHint">Fill price per unit and quantity to calculate final price automatically. You can still edit final price manually.</div></div>
+          <div class="field full"><label for="note" data-i18n="note">Note</label><textarea id="note" placeholder="Promo, size, bundle, voucher used..." data-i18n-placeholder="notePlaceholder"></textarea></div>
+        </div>
+        <datalist id="brandSuggestions"></datalist><datalist id="productSuggestions"></datalist><datalist id="storeSuggestions"></datalist>
+        <div class="form-actions"><button type="submit" id="saveBtn" data-i18n="save">Save</button><button type="button" class="secondary" id="resetBtn" data-i18n="clear">Clear</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="searchModal" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="quickTitle">
+      <div class="modal-header"><h2 class="modal-title" id="quickTitle" data-i18n="quickSearch">Quick search</h2><button class="ghost" id="closeSearch" type="button">✕</button></div>
+      <input id="modalSearchInput" list="mainSuggestions" placeholder="Search product, brand or store" data-i18n-placeholder="searchPlaceholder" autocomplete="off" />
+      <div id="quickResults" class="search-results"></div>
+    </section>
+  </div>
+<script>
+const I18N={
+ en:{title:'Price Check',subtitle:'Track every purchase price, then compare before buying again.',searchPlaceholder:'Search product, brand or store',searchBtn:'Search',searchHint:'Tip: Search “Eucerin”, “sunscreen”, “Watsons”, etc.',products:'Products',records:'Records',stores:'Stores',history:'Your price history',sortRecent:'Newest first',sortCheap:'Cheapest first',sortAZ:'A to Z',export:'Export backup',import:'Import backup',addRecord:'Add price record',brand:'Brand',product:'Product name',store:'Store',date:'Date',unitPrice:'Price per unit',quantity:'Quantity',finalPrice:'Final price',currency:'Currency',autoCalc:'Auto calculation',calcHint:'Fill price per unit and quantity to calculate final price automatically. You can still edit final price manually.',note:'Note',notePlaceholder:'Promo, size, bundle, voucher used...',save:'Save',clear:'Clear',quickSearch:'Quick search',empty:'No records yet. Tap + to add your first purchase price.',best:'Best price',bestUnit:'Best unit price',latest:'Latest',edit:'Edit',delete:'Delete',avg:'Avg',recordsText:'record(s)',confirmDelete:'Delete this record?',saved:'Saved',noResult:'No matching item found.',backupName:'price-check-backup',manual:'Manual',perUnit:'per unit',qty:'qty',total:'total'},
+ zh:{title:'价格记录',subtitle:'记录每次购买价钱，买东西前快速判断划不划算。',searchPlaceholder:'搜索商品、品牌或店名',searchBtn:'搜索',searchHint:'例如：Eucerin、防晒、Watsons、Lazada 等。',products:'商品',records:'记录',stores:'店铺',history:'我的价格记录',sortRecent:'最新优先',sortCheap:'最便宜优先',sortAZ:'A 到 Z',export:'导出备份',import:'导入备份',addRecord:'新增价格记录',brand:'品牌',product:'商品名称',store:'店铺',date:'日期',unitPrice:'单价',quantity:'数量',finalPrice:'最终价钱',currency:'货币',autoCalc:'自动计算',calcHint:'填写单价和数量后，最终价钱会自动计算；你也可以手动修改最终价钱。',note:'备注',notePlaceholder:'促销、容量、套装、voucher 等...',save:'保存',clear:'清空',quickSearch:'快速搜索',empty:'还没有记录。点击 + 新增第一笔购买价格。',best:'最低价',bestUnit:'最低单价',latest:'最新',edit:'编辑',delete:'删除',avg:'平均',recordsText:'笔记录',confirmDelete:'确定要删除这笔记录吗？',saved:'已保存',noResult:'找不到相关记录。',backupName:'price-check-backup',manual:'手动',perUnit:'单价',qty:'数量',total:'总价'}
+};
+const KEY='priceCheck.records.v2', OLDKEY='priceCheck.records.v1', LANG='priceCheck.lang.v1';
+let old=JSON.parse(localStorage.getItem(OLDKEY)||'[]');
+let records=JSON.parse(localStorage.getItem(KEY)||'null');
+if(!records && old.length){records=old.map(r=>({...r,unitPrice:r.price,quantity:1,totalPrice:r.price})); localStorage.setItem(KEY,JSON.stringify(records));}
+records=records||[]; let lang=localStorage.getItem(LANG)||'en';
+const $=id=>document.getElementById(id); const t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
+function today(){return new Date().toISOString().slice(0,10)}
+function fmt(num,curr='MYR'){return `${curr} ${Number(num||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`}
+function escapeHtml(str=''){return String(str).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function saveStore(){localStorage.setItem(KEY,JSON.stringify(records))}
+function cleanNumericInput(value, decimals){
+ const raw=String(value||'').replace(/[^0-9.]/g,'');
+ const firstDot=raw.indexOf('.');
+ let cleaned=firstDot===-1?raw:raw.slice(0,firstDot+1)+raw.slice(firstDot+1).replace(/\./g,'');
+ if(decimals!==undefined && cleaned.includes('.')){
+   const [whole,decimal='']=cleaned.split('.');
+   cleaned=whole+'.'+decimal.slice(0,decimals);
+ }
+ return cleaned;
+}
+function toNum(value){const n=parseFloat(String(value||'').replace(/,/g,'')); return Number.isFinite(n)?n:0}
+function formatMoneyInput(id){const el=$(id); const n=toNum(el.value); el.value=el.value===''?'':n.toFixed(2)}
+function getTotal(r){return Number(r.totalPrice ?? r.price ?? 0)}
+function getUnitPrice(r){
+ const unit=Number(r.unitPrice);
+ if(Number.isFinite(unit) && unit>0) return unit;
+ const qty=Number(r.quantity);
+ if(Number.isFinite(qty) && qty>0) return getTotal(r)/qty;
+ return getTotal(r);
+}
+function normalized(r){return `${r.brand} ${r.product} ${r.store} ${r.note||''}`.toLowerCase()}
+function productKey(r){return `${(r.brand||'').trim()}|||${(r.product||'').trim()}|||${r.currency||'MYR'}`.toLowerCase()}
+function groupRecords(list){const map=new Map(); list.forEach(r=>{const key=productKey(r); if(!map.has(key)) map.set(key,{brand:r.brand,product:r.product,currency:r.currency||'MYR',items:[]}); map.get(key).items.push(r)}); return [...map.values()]}
+function applySort(groups){const s=$('sortBy').value; groups.forEach(g=>g.items.sort((a,b)=>new Date(b.date)-new Date(a.date))); if(s==='cheap') return groups.sort((a,b)=>Math.min(...a.items.map(getUnitPrice))-Math.min(...b.items.map(getUnitPrice)));  if(s==='az') return groups.sort((a,b)=>(a.brand+a.product).localeCompare(b.brand+b.product)); return groups.sort((a,b)=>new Date(b.items[0].date)-new Date(a.items[0].date))}
+function uniqueValues(field){return [...new Set(records.map(r=>(r[field]||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b))}
+function updateSuggestions(){
+ const brand=uniqueValues('brand'), product=uniqueValues('product'), store=uniqueValues('store');
+ $('brandSuggestions').innerHTML=brand.map(v=>`<option value="${escapeHtml(v)}"></option>`).join('');
+ $('productSuggestions').innerHTML=product.map(v=>`<option value="${escapeHtml(v)}"></option>`).join('');
+ $('storeSuggestions').innerHTML=store.map(v=>`<option value="${escapeHtml(v)}"></option>`).join('');
+ const all=[...new Set([...brand,...product,...store,...records.map(r=>`${r.brand} ${r.product}`)])].filter(Boolean).slice(0,200);
+ $('mainSuggestions').innerHTML=all.map(v=>`<option value="${escapeHtml(v)}"></option>`).join('');
+}
+function setLang(newLang){lang=newLang; localStorage.setItem(LANG,lang); $('language').value=lang; document.documentElement.lang=lang==='zh'?'zh':'en'; document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)}); document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)}); $('openAdd').setAttribute('data-label',t('addRecord')); render(); updateCalcPreview()}
+function render(){
+ updateSuggestions(); const q=$('mainSearch').value.trim().toLowerCase(); const filtered=q?records.filter(r=>normalized(r).includes(q)):records; const groups=applySort(groupRecords(filtered));
+ $('statProducts').textContent=groupRecords(records).length; $('statRecords').textContent=records.length; $('statStores').textContent=new Set(records.map(r=>(r.store||'').toLowerCase()).filter(Boolean)).size;
+ const list=$('itemList'); if(!groups.length){list.innerHTML=`<div class="card empty">${q?t('noResult'):t('empty')}</div>`;return}
+ list.innerHTML=groups.map((g,idx)=>{const best=g.items.reduce((a,b)=>getUnitPrice(a)<=getUnitPrice(b)?a:b); const latest=[...g.items].sort((a,b)=>new Date(b.date)-new Date(a.date))[0]; const avg=g.items.reduce((s,x)=>s+getUnitPrice(x),0)/g.items.length; const id=`item-${idx}`; return `<article class="card item" id="${id}"><div class="item-head"><div><p class="item-title">${escapeHtml(g.brand)} — ${escapeHtml(g.product)}</p><div class="item-meta">${g.items.length} ${t('recordsText')} · ${t('avg')}: ${fmt(avg,g.currency)} ${t('perUnit')}</div></div><div class="price-block"><span class="badge">${t('bestUnit')}</span><div class="price">${fmt(getUnitPrice(best),g.currency)}</div></div></div><div class="rows">${g.items.map(r=>{const unit=(r.unitPrice!==undefined&&r.quantity!==undefined)?`${fmt(getUnitPrice(r),r.currency)} ${t('perUnit')} × ${r.quantity} ${t('qty')}`:t('manual'); return `<div class="row"><div class="row-date">${escapeHtml(r.date)}</div><div><div class="row-store">${escapeHtml(r.store)} ${r.id===latest.id?`<span class="badge warn">${t('latest')}</span>`:''}</div><div class="unit-line">${unit}</div>${r.note?`<div class="notes">${escapeHtml(r.note)}</div>`:''}</div><div style="text-align:right"><div class="row-price">${fmt(getTotal(r),r.currency)}</div><div class="record-actions"><button class="ghost small" onclick="editRecord('${r.id}')">${t('edit')}</button><button class="ghost small danger" onclick="deleteRecord('${r.id}')">${t('delete')}</button></div></div></div>`}).join('')}</div></article>`}).join('')
+}
+function resetForm(){ $('editId').value=''; $('priceForm').reset(); $('date').value=today(); $('currency').value='MYR'; $('formTitle').textContent=t('addRecord'); updateCalcPreview(); }
+function openForm(){ $('formModal').classList.add('show'); $('formModal').setAttribute('aria-hidden','false'); setTimeout(()=>$('brand').focus(),80)}
+function closeForm(){ $('formModal').classList.remove('show'); $('formModal').setAttribute('aria-hidden','true')}
+function updateCalcPreview(){const u=toNum($('unitPrice').value), q=toNum($('quantity').value); const total=(u>0&&q>0)?u*q:toNum($('price').value); $('calcPreview').textContent=fmt(total,$('currency').value)}
+function autoCalculate(){const u=toNum($('unitPrice').value), q=toNum($('quantity').value); if(u>0&&q>0){ $('price').value=(u*q).toFixed(2); } updateCalcPreview();}
+function bindMoneyField(id){$(id).addEventListener('input',e=>{e.target.value=cleanNumericInput(e.target.value,2); if(id==='unitPrice') autoCalculate(); else updateCalcPreview();}); $(id).addEventListener('blur',()=>{formatMoneyInput(id); if(id==='unitPrice') autoCalculate(); else updateCalcPreview();});}
+function bindQtyField(id){$(id).addEventListener('input',e=>{e.target.value=cleanNumericInput(e.target.value); autoCalculate();});}
+bindMoneyField('unitPrice'); bindQtyField('quantity'); bindMoneyField('price'); $('currency').addEventListener('input',updateCalcPreview);
+$('priceForm').addEventListener('submit',e=>{e.preventDefault(); const id=$('editId').value||(crypto.randomUUID?crypto.randomUUID():String(Date.now())); const item={id,brand:$('brand').value.trim(),product:$('product').value.trim(),store:$('store').value.trim(),date:$('date').value,unitPrice:$('unitPrice').value===''?undefined:Number(toNum($('unitPrice').value).toFixed(2)),quantity:$('quantity').value===''?undefined:toNum($('quantity').value),totalPrice:Number(toNum($('price').value).toFixed(2)),price:Number(toNum($('price').value).toFixed(2)),currency:$('currency').value,note:$('note').value.trim()}; records=records.filter(r=>r.id!==id).concat(item); saveStore(); resetForm(); closeForm(); render(); window.scrollTo({top:0,behavior:'smooth'});});
+function editRecord(id){const r=records.find(x=>x.id===id); if(!r)return; $('editId').value=r.id; $('brand').value=r.brand; $('product').value=r.product; $('store').value=r.store; $('date').value=r.date; $('unitPrice').value=r.unitPrice!==undefined?Number(r.unitPrice).toFixed(2):''; $('quantity').value=r.quantity??''; $('price').value=Number(getTotal(r)).toFixed(2); $('currency').value=r.currency||'MYR'; $('note').value=r.note||''; $('formTitle').textContent=t('edit'); updateCalcPreview(); openForm();}
+function deleteRecord(id){if(confirm(t('confirmDelete'))){records=records.filter(r=>r.id!==id); saveStore(); render();}}
+function openSearchModal(){ $('searchModal').classList.add('show'); $('searchModal').setAttribute('aria-hidden','false'); $('modalSearchInput').value=$('mainSearch').value; renderQuickResults(); setTimeout(()=>$('modalSearchInput').focus(),80)}
+function closeSearchModal(){ $('searchModal').classList.remove('show'); $('searchModal').setAttribute('aria-hidden','true')}
+function renderQuickResults(){const q=$('modalSearchInput').value.trim().toLowerCase(); const groups=applySort(groupRecords(q?records.filter(r=>normalized(r).includes(q)):records)); $('quickResults').innerHTML=groups.length?groups.map((g,idx)=>{const best=Math.min(...g.items.map(getUnitPrice)); const latest=[...g.items].sort((a,b)=>new Date(b.date)-new Date(a.date))[0]; return `<button class="quick-result" onclick="jumpTo('${escapeHtml(g.brand+' '+g.product)}')"><b>${escapeHtml(g.brand)} — ${escapeHtml(g.product)}</b><span>${t('bestUnit')}: ${fmt(best,g.currency)} · ${t('latest')}: ${fmt(getTotal(latest),g.currency)} @ ${escapeHtml(latest.store)}</span></button>`}).join(''):`<div class="empty">${t('noResult')}</div>`}
+function jumpTo(query){closeSearchModal(); $('mainSearch').value=query; render(); const first=document.querySelector('.item'); if(first) first.scrollIntoView({behavior:'smooth',block:'start'});}
+$('openAdd').onclick=()=>{resetForm();openForm()}; $('closeForm').onclick=closeForm; $('formModal').addEventListener('click',e=>{if(e.target.id==='formModal')closeForm()});
+$('openSearch').onclick=openSearchModal; $('closeSearch').onclick=closeSearchModal; $('searchModal').addEventListener('click',e=>{if(e.target.id==='searchModal')closeSearchModal()}); $('modalSearchInput').addEventListener('input',renderQuickResults); $('mainSearch').addEventListener('input',render); $('sortBy').addEventListener('change',render); $('language').addEventListener('change',e=>setLang(e.target.value)); $('resetBtn').onclick=resetForm;
+$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${t('backupName')}-${today()}.json`; a.click(); URL.revokeObjectURL(a.href)};
+$('importBtn').onclick=()=>$('importFile').click(); $('importFile').addEventListener('change',async e=>{const file=e.target.files[0]; if(!file)return; try{const data=JSON.parse(await file.text()); if(Array.isArray(data)){records=data; saveStore(); render(); alert(t('saved'))}else alert('Invalid backup file')}catch(err){alert('Invalid backup file')} e.target.value=''});
+resetForm(); setLang(lang);
+if(records.length===0){records=[{id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),brand:'Eucerin',product:'UltraSensitive Gel Cream',store:'Watsons',date:today(),unitPrice:29.97,quantity:3,totalPrice:89.90,price:89.90,currency:'MYR',note:'Sample record - you can delete this.'}]; saveStore(); render();}
+</script>
+</body>
+</html>
