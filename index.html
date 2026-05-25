@@ -6,8 +6,10 @@
   <meta name="theme-color" content="#111827" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Price Check" />
-  <title>Price Check v5</title>
+  <meta name="apple-mobile-web-app-title" content="BuyWise" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./buywise-icon.png">
+  <link rel="icon" type="image/png" href="./buywise-icon.png">
+  <title>BuyWise</title>
   <style>
     :root{
       --bg:#f7f4ef; --card:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
@@ -34,7 +36,7 @@
 <body>
   <div class="app">
     <header class="app-header">
-      <div><h1 class="app-title" data-i18n="title">Price Check</h1><p class="sub" data-i18n="subtitle">Track prices and check whether today’s deal is worth it.</p></div>
+      <div><h1 class="app-title" data-i18n="title">BuyWise</h1><p class="sub" data-i18n="subtitle">Track prices and check whether today’s deal is worth it.</p></div>
       <select id="language" class="lang" aria-label="Language"><option value="en">EN</option><option value="zh">中文</option></select>
     </header>
 
@@ -100,8 +102,8 @@
   </div>
 <script>
 const I18N={
- en:{title:'Price Check',subtitle:'Track every purchase price, then compare before buying again.',searchPlaceholder:'Search product, brand or store',searchBtn:'Search',searchHint:'Tip: Search “Eucerin”, “sunscreen”, “Watsons”, etc.',products:'Products',records:'Records',stores:'Stores',history:'Your price history',sortRecent:'Newest first',sortCheap:'Cheapest first',sortAZ:'A to Z',export:'Export backup',import:'Import backup',addRecord:'Add price record',brand:'Brand',product:'Product name',store:'Store',date:'Date',unitPrice:'Price per unit',quantity:'Quantity',finalPrice:'Final price',currency:'Currency',autoCalc:'Auto calculation',calcHint:'Fill price per unit and quantity to calculate final price automatically. You can still edit final price manually.',note:'Note',notePlaceholder:'Promo, size, bundle, voucher used...',save:'Save',clear:'Clear',quickSearch:'Quick search',empty:'No records yet. Tap + to add your first purchase price.',best:'Best price',bestUnit:'Best unit price',latest:'Latest',edit:'Edit',delete:'Delete',avg:'Avg',recordsText:'record(s)',confirmDelete:'Delete this record?',saved:'Saved',noResult:'No matching item found.',backupName:'price-check-backup',manual:'Manual',perUnit:'per unit',qty:'qty',total:'total'},
- zh:{title:'价格记录',subtitle:'记录每次购买价钱，买东西前快速判断划不划算。',searchPlaceholder:'搜索商品、品牌或店名',searchBtn:'搜索',searchHint:'例如：Eucerin、防晒、Watsons、Lazada 等。',products:'商品',records:'记录',stores:'店铺',history:'我的价格记录',sortRecent:'最新优先',sortCheap:'最便宜优先',sortAZ:'A 到 Z',export:'导出备份',import:'导入备份',addRecord:'新增价格记录',brand:'品牌',product:'商品名称',store:'店铺',date:'日期',unitPrice:'单价',quantity:'数量',finalPrice:'最终价钱',currency:'货币',autoCalc:'自动计算',calcHint:'填写单价和数量后，最终价钱会自动计算；你也可以手动修改最终价钱。',note:'备注',notePlaceholder:'促销、容量、套装、voucher 等...',save:'保存',clear:'清空',quickSearch:'快速搜索',empty:'还没有记录。点击 + 新增第一笔购买价格。',best:'最低价',bestUnit:'最低单价',latest:'最新',edit:'编辑',delete:'删除',avg:'平均',recordsText:'笔记录',confirmDelete:'确定要删除这笔记录吗？',saved:'已保存',noResult:'找不到相关记录。',backupName:'price-check-backup',manual:'手动',perUnit:'单价',qty:'数量',total:'总价'}
+ en:{title:'BuyWise',subtitle:'Track every purchase price, then compare before buying again.',searchPlaceholder:'Search product, brand or store',searchBtn:'Search',searchHint:'Tip: Search “Eucerin”, “sunscreen”, “Watsons”, etc.',products:'Products',records:'Records',stores:'Stores',history:'Your price history',sortRecent:'Newest first',sortCheap:'Cheapest first',sortAZ:'A to Z',export:'Export backup',import:'Import backup',addRecord:'Add price record',brand:'Brand',product:'Product name',store:'Store',date:'Date',unitPrice:'Price per unit',quantity:'Quantity',finalPrice:'Final price',currency:'Currency',autoCalc:'Auto calculation',calcHint:'Fill price per unit and quantity to calculate final price automatically. You can still edit final price manually.',note:'Note',notePlaceholder:'Promo, size, bundle, voucher used...',save:'Save',clear:'Clear',quickSearch:'Quick search',empty:'No records yet. Tap + to add your first purchase price.',best:'Best price',bestUnit:'Best unit price',latest:'Latest',edit:'Edit',delete:'Delete',avg:'Avg',recordsText:'record(s)',confirmDelete:'Delete this record?',saved:'Saved',noResult:'No matching item found.',backupName:'price-check-backup',manual:'Manual',perUnit:'per unit',qty:'qty',total:'total'},
+ zh:{title:'BuyWise',subtitle:'记录每次购买价钱，买东西前快速判断划不划算。',searchPlaceholder:'搜索商品、品牌或店名',searchBtn:'搜索',searchHint:'例如：Eucerin、防晒、Watsons、Lazada 等。',products:'商品',records:'记录',stores:'店铺',history:'我的价格记录',sortRecent:'最新优先',sortCheap:'最便宜优先',sortAZ:'A 到 Z',export:'导出备份',import:'导入备份',addRecord:'新增价格记录',brand:'品牌',product:'商品名称',store:'店铺',date:'日期',unitPrice:'单价',quantity:'数量',finalPrice:'最终价钱',currency:'货币',autoCalc:'自动计算',calcHint:'填写单价和数量后，最终价钱会自动计算；你也可以手动修改最终价钱。',note:'备注',notePlaceholder:'促销、容量、套装、voucher 等...',save:'保存',clear:'清空',quickSearch:'快速搜索',empty:'还没有记录。点击 + 新增第一笔购买价格。',best:'最低价',bestUnit:'最低单价',latest:'最新',edit:'编辑',delete:'删除',avg:'平均',recordsText:'笔记录',confirmDelete:'确定要删除这笔记录吗？',saved:'已保存',noResult:'找不到相关记录。',backupName:'price-check-backup',manual:'手动',perUnit:'单价',qty:'数量',total:'总价'}
 };
 const KEY='priceCheck.records.v2', OLDKEY='priceCheck.records.v1', LANG='priceCheck.lang.v1';
 let old=JSON.parse(localStorage.getItem(OLDKEY)||'[]');
@@ -172,8 +174,18 @@ $('openAdd').onclick=()=>{resetForm();openForm()}; $('closeForm').onclick=closeF
 $('openSearch').onclick=openSearchModal; $('closeSearch').onclick=closeSearchModal; $('searchModal').addEventListener('click',e=>{if(e.target.id==='searchModal')closeSearchModal()}); $('modalSearchInput').addEventListener('input',renderQuickResults); $('mainSearch').addEventListener('input',render); $('sortBy').addEventListener('change',render); $('language').addEventListener('change',e=>setLang(e.target.value)); $('resetBtn').onclick=resetForm;
 $('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${t('backupName')}-${today()}.json`; a.click(); URL.revokeObjectURL(a.href)};
 $('importBtn').onclick=()=>$('importFile').click(); $('importFile').addEventListener('change',async e=>{const file=e.target.files[0]; if(!file)return; try{const data=JSON.parse(await file.text()); if(Array.isArray(data)){records=data; saveStore(); render(); alert(t('saved'))}else alert('Invalid backup file')}catch(err){alert('Invalid backup file')} e.target.value=''});
+function removeLegacySampleRecord(){
+ const before=records.length;
+ records=records.filter(r=>!(
+   String(r.brand||'').toLowerCase()==='eucerin' &&
+   String(r.product||'').toLowerCase()==='ultrasensitive gel cream' &&
+   String(r.store||'').toLowerCase()==='watsons' &&
+   String(r.note||'').toLowerCase().includes('sample record')
+ ));
+ if(records.length!==before) saveStore();
+}
+removeLegacySampleRecord();
 resetForm(); setLang(lang);
-if(records.length===0){records=[{id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),brand:'Eucerin',product:'UltraSensitive Gel Cream',store:'Watsons',date:today(),unitPrice:29.97,quantity:3,totalPrice:89.90,price:89.90,currency:'MYR',note:'Sample record - you can delete this.'}]; saveStore(); render();}
 </script>
 </body>
 </html>
